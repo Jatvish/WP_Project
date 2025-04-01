@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: black;
+            color: #fff;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #000000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff, 0 0 24px #ffffff; 
+            transition: text-shadow 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff, 0 0 24px #ffffff;
+        }
+
+        .about-container {
+            padding: 80px 50px;
+            text-align: center;
+        }
+
+        .about-container h2 {
+            font-size: 36px;
+            color: #fff;
+        }
+
+        .about-container p {
+            font-size: 20px;
+            color: #fff;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .about-container img {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        .back-to-home {
+            margin-top: 40px;
+            padding: 15px 30px;
+            background-color: rgba(255, 255, 255, 0.121);
+            color: #fff;
+            border: 2px solid rgba(215, 187, 187, 0.8);
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-to-home:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            color: #000000;
+            border: 2px solid #C1C5CD;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">ball.</a>
+        <nav>
+            <a href="Sample.html">Home</a>
+            <a href="About.html">About</a>
+            <a href="Sample.html#products">Shop</a>
+            <a href="Sample.#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="about-container">
+        <h2>About Big Ball Clothing</h2>
+        <p>
+            At Big Ball Clothing, we're all for balls. Our goal is to create apparel that speaks for big ballers. We have carefully curated a diverse collection of clothing that truly make it one of the ballest moments of all time.
+        </p>
+        <img src="INSERT LOGO" alt="About Big Ball Clothing">
+        <p>
+            Welcome to the Big Ball. Only for the biggest of balls.
+        </p>
+        <button class="back-to-home" onclick="window.location.href='SampleJquery.html'">Back to Home</button>
+    </section>
+</body>
+</html>
