@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPclothing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: black;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #000000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff, 0 0 24px #ffffff; 
+            transition: text-shadow 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffffff; /* Keep the text white */
+            text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff, 0 0 24px #ffffff; 
+            transition: text-shadow 0.3s ease; 
+        }
+        
+
+        .image-background-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .image-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hero {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-content {
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .hero-content.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 0 10px #000, 0 0 20px #000;
+}
+        
+
+        .hero h1 sup {
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin: 20px 0;
+            color: #fff;
+            text-shadow: 0 0 5px #000, 0 0 10px #000;
+        }
+
+        .hero button {
+            padding: 15px 30px;
+            background-color: rgba(255, 255, 255, 0.121);
+            color: #fff;
+            border: 2px solid rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            font-size: 16px;
+            font-color #000
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+
+        .hero button:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            color: #000000;
+            border: 2px solid #C1C5CD;
+            box-shadow: 0 0 10px rgba(193, 197, 205, 0.6),
+                        0 0 15px rgba(193, 197, 205, 0.4),
+                        0 0 20px rgba(193, 197, 205, 0.3);
+            transform: scale(1.03);
+        }
+
+        .hero-content {
+            opacity: 0; /* Initially hidden */
+            transform: translateY(20px); /* Start slightly below */
+            transition: opacity 0.8s ease, transform 0.8s ease; /* Smooth transition */
+        }
+        
+        .hero-content.fade-in {
+            opacity: 1; /* Fully visible */
+            transform: translateY(0); /* Back to original position */
+        }
+        
+        .hero-content.fade-out {
+            opacity: 0; /* Hidden */
+            transform: translateY(20px); /* Move slightly down */
+        }
+        
+
+        .products-wrapper {
+            padding: 50px 20px;
+            background-color: black;
+            color: white;
+        }
+
+        .featured-heading {
+            color: white;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Create a 3x3 grid */
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .product {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Space out the image and button evenly */
+            height: auto; /* Dynamic height for the card */
+            padding: 10px; /* Reduce padding if needed */
+        }
+        
+        .product img {
+            flex-grow: 1; /* Allow the image to take up any available space */
+        }
+        
+        
+        .product img {
+            width: 100%;
+            height: 500px; /* Adjust image height */
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .product h3 {
+            margin: 15px 0;
+            font-size: 20px;
+        }
+        
+        .product p {
+            font-size: 18px; /* Adjust price font size */
+            margin: 10px 0;
+        }
+        
+        .product button {
+            padding: 12px 25px; /* Adjust button size */
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px; /* Adjust font size */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .product button:hover {
+            background-color: #555;
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: flex-start; 
+            align-items: center; 
+            background-color: #333; 
+            color: #fff;
+            padding: 20px 30px;
+            gap: 30px; 
+        }
+        
+        .footer-logo img {
+            height: 50px; 
+            width: auto;
+            margin-right: 20px; 
+        }
+        
+        .footer-left {
+            flex-grow: 1; 
+            text-align: left; 
+        }
+        
+        .footer-left p {
+            margin: 5px 0; 
+        }
+        
+        .social-links {
+            display: inline-flex;
+            gap: 10px; 
+            align-items: center;
+        }
+        
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #f0f0f0;
+            text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff;
+        }
+        
+        .footer-center {
+            text-align: right;
+            margin-left: auto; 
+        }
+        
+        
+        .social-links {
+            display: flex;
+            gap: 15px; 
+            align-items: center;
+        }
+        
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #f0f0f0;
+            text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff;
+        }
+        
+        
+        .footer-center {
+            text-align: center;
+            font-size: 14px;
+        }
+        
+
+        .fade-out {
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .fade-out.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">WPclothing.</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="#products">Shop</a>
+        <a href="#contact">Contact</a>
+        <a href="/cart" class="cart-link">🛒 (<span id="cart-count">0</span>)</a>
+    </nav>
+</header>
+
+<div class="image-background-wrapper">
+    <img src="https://i.pinimg.com/736x/04/9d/53/049d536a25e508a8e6e38f015a50ba0f.jpg" alt="Background" class="image-background">
+</div>
+
+<section class="hero" id="home">
+    <div class="hero-content" id="hero-content">
+        <h1>WPclothing<sup>tm</sup></h1>
+        <p>Fashion is Statement.</p>
+        <button id="shopNowBtn">Shop Now</button>
+    </div>
+</section>
+
+<div class="products-wrapper" id="products">
+    <h2 class="featured-heading">Featured</h2>
+    <section class="products">
+        <!-- 9 Products -->
+        <div class="product"><img src="https://urbanpitara.com/cdn/shop/files/Screenshot2023-05-30at6.36.17PM.png?v=17437681744 " alt="Product 1"><h3>Creepy</h3><p>₹699</p><button>Buy Now</button></div>
+        <div class="product"><img src="https://noneclothing.in/wp-content/uploads/2024/11/mockup-featuring-the-back-of-a-tee-against-a-plain-background-220-el1-2-copy.jpg " alt="Product 2"><h3>Kenny</h3><p>₹999</p><button>Buy Now</button></div>
+        <div class="product"><img src="https://noneclothing.in/wp-content/uploads/2025/01/mockup-of-a-hanging-t-shirt-featuring-a-customizable-background-2898-el1-2025-01-25T124804.511-768x1152.png" alt="Product 3"><h3>Eddy</h3><p>₹999</p><button>Buy Now</button></div>
+        <div class="product"><img src="https://www.mydesignation.com/cdn/shop/files/starry-night-385896.jpg?v=1720501285&width=1100" alt="Product 4"><h3>Starry</h3><p>₹799</p><button>Buy Now</button></div>
+        <div class="product"><img src="https://nobero.com/cdn/shop/files/13_c28b7727-769a-4494-af2f-2b872cd5532f.jpg?v=1712051554&width=1066 " alt="Product 5"><h3>Positivity</h3><p>₹499</p><button>Buy Now</button></div>
+        <div class="product"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkrGidghFnXUjPI701ZZuZC0QLuZ2_AOhd7w&s " alt="Product 6"><h3>Stonks</h3><p>₹499</p><button>Buy Now</button></div>
+        <div class="product"><img src="https://noneclothing.in/wp-content/uploads/2025/03/back-view-mockup-featuring-a-t-shirt-on-a-hanger-1985-el1-2025-03-25T164412.515-768x896.png " alt="Product 7"><h3>Weeknd</h3><p>₹999</p><button>Buy Now</button></div>
+        <div class="product"><img src="https://noneclothing.in/wp-content/uploads/2025/01/mockup-of-a-hanging-t-shirt-featuring-a-customizable-background-2898-el1-2025-01-22T150908.208-768x1152.png" alt="Product 8"><h3>Amore</h3><p>₹999</p><button>Buy Now</button></div>
+        <div class="product"><img src="https://noneclothing.in/wp-content/uploads/2023/08/back-view-mockup-featuring-a-t-shirt-on-a-hanger-1985-el1-34-768x896.png " alt="Product 9"><h3>Luffy</h3><p>₹799</p><button>Buy Now</button></div>
+    </section>
+</div>
+
+<footer id="contact">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="https://via.placeholder.com/150x50?text=LOGO" alt="WPclothing Logo">
+        </div>
+        <div class="footer-left">
+            <p>Contact Us: WPclothing@email.com</p>
+            <p>Phone: +91 9952873933</p>
+            <div class="social-links">
+                <a href="https://facebook.com" target="_blank">Facebook</a>
+                <a href="https://twitter.com" target="_blank">Twitter</a>
+                <a href="https://instagram.com" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-center">
+            <p>&copy; 2025 WPclothing. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- Inline JS -->
+<script>
+$(document).ready(function () {
+    let $heroContent = $("#hero-content");
+
+    let observer = new IntersectionObserver(function (entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                $heroContent.addClass("fade-in").removeClass("fade-out");
+            } else {
+                $heroContent.addClass("fade-out").removeClass("fade-in");
+            }
+        });
+    });
+
+    observer.observe($heroContent[0]);
+
+    $(window).on("scroll", function () {
+        if ($(this).scrollTop() > 100) {
+            $heroContent.addClass("fade-out");
+        } else {
+            $heroContent.removeClass("fade-out");
+        }
+    });
+
+    $("#shopNowBtn").on("click", function () {
+        $("html, body").animate({
+            scrollTop: $("#products").offset().top
+        }, 800);
+    });
+
+    $(".product button").on("click", function () {
+        let product = $(this).closest(".product");
+        let productName = product.find("h3").text();
+        let productPrice = product.find("p").text();
+        let productImage = product.find("img").attr("src");
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        let existingProduct = cart.find(item => item.name === productName);
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            cart.push({
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
+        alert(productName + " added to cart!");
+    });
+
+    function updateCartCount() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        $("#cart-count").text(cart.length);
+    }
+
+    updateCartCount();
+
+    
+});
+</script>
+
+</body>
+</html>

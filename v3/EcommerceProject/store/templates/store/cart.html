@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    {% load static %}
+<script src="{% static 'store/js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'store/js/cart.js' %}"></script>
+
+</head>
+
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #111;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        text-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff, 0 0 24px #ffffff; 
+        transition: text-shadow 0.3s ease;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 400;
+    }
+
+    .cart-item img {
+        width: 120px;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .cart-item h3 {
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .cart-item p {
+        font-size: 16px;
+        margin: 5px 0;
+    }
+
+    .remove-item {
+        background: red;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .checkout-btn {
+        padding: 10px 20px;
+        background-color: rgba(255, 255, 255, 0.121);
+        color: #fff;
+        border: 2px solid rgba(215, 187, 187, 0.8);
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+
+    .checkout-btn:hover {
+        background-color: rgba(28, 197, 36, 0.6);
+        color: #000000;
+        box-shadow: 0 0 10px rgb(34, 225, 20),
+                    0 0 15px rgba(34, 225, 20),
+                    0 0 20px rgba(34, 225, 20);
+        transform: scale(1.03);
+    }
+
+    #clear-cart {
+        background: red;
+        color: white;
+        font-weight: 600;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 20px;
+        transition: background 0.3s ease;
+    }
+    
+    #clear-cart:hover {
+        background: darkred;
+    }
+
+    #cart-total {
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 20px;
+    }
+    
+</style>
+
+<body>
+
+<header>
+    <a href="/" class="logo">WPclothing.</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="about">About</a>
+        <a href="/#products">Shop</a>
+        <a href="/#contact">Contact</a>
+        <a href="cart.html" class="cart-link">🛒 Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+</header>
+
+<h1>Your Shopping Cart</h1>
+<div id="cart-container" class="cart-container"></div>
+<p id="cart-total">Total: $0.00</p>
+<button id="clear-cart">Clear Cart</button>
+<button class="checkout-btn" id="checkout">Checkout</button>
+<p id="checkout-error" style="color: red; display: none;">Your cart is empty.</p>
+
+<script>
+$(document).ready(function () {
+    function loadCart() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cartContainer = $("#cart-container");
+        let total = 0;
+        cartContainer.html("");
+
+        if (cart.length === 0) {
+            cartContainer.html("<p>Your cart is empty.</p>");
+        } else {
+            cart.forEach((item, index) => {
+                let itemTotal = parseFloat(item.price.replace('$', '')) * item.quantity;
+                total += itemTotal;
+                cartContainer.append(`
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <h3>${item.name}</h3>
+                        <p>${item.price} x ${item.quantity}</p>
+                        <button class="remove-item" data-index="${index}">Remove</button>
+                    </div>
+                `);
+            });
+        }
+
+        $("#cart-total").text(`Total: $${total.toFixed(2)}`);
+        $("#cart-count").text(cart.length);
+    }
+
+    $(document).on("click", ".remove-item", function () {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let index = $(this).data("index");
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCart();
+    });
+
+    $("#clear-cart").on("click", function () {
+        localStorage.removeItem("cart");
+        loadCart();
+    });
+
+    $("#checkout").on("click", function () {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        if (cart.length === 0) {
+            $("#checkout-error").show();
+        } else {
+            localStorage.removeItem("cart");
+            window.location.href = "OrderPlaced.html";
+        }
+    });
+
+    loadCart();
+});
+</script>
+
+</body>
+</html>
